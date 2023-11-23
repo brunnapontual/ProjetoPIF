@@ -4,6 +4,16 @@ int gerarNumeroAleatorio(int min, int max) {
   return min + rand() % (max - min + 1);
 }
 
+Expandir
+message.txt
+8 KB
+﻿
+#include "lib.h"
+
+int gerarNumeroAleatorio(int min, int max) {
+  return min + rand() % (max - min + 1);
+}
+
 void inserirH(personagem **head, int hp, int ataque, int pm, char nome[50]) {
   personagem *novoPersonagem = (personagem *)malloc(sizeof(personagem));
   strcpy(novoPersonagem->nome, nome);
@@ -157,7 +167,7 @@ void removerP(personagem **head, char nome[50]) {
   }
 
   if (temp == NULL) {
-    printf("Personagem não encontrado\n");
+    printf("Herói não encontrado\n");
     return;
   }
 
@@ -196,8 +206,8 @@ personagem *escolherPersonagem(int escolha, personagem *head) {
     personagemAtual = (personagem *)malloc(sizeof(personagem));
     strcpy(personagemAtual->nome, head->nome);
     personagemAtual->hp = head->hp;
-    personagemAtual->ataque = head->hp;
-    personagemAtual->pm = head->hp;
+    personagemAtual->ataque = head->ataque;
+    personagemAtual->pm = head->pm;
     personagemAtual->prox = NULL;
     break;
   case 2:
@@ -217,7 +227,7 @@ personagem *escolherPersonagem(int escolha, personagem *head) {
     personagemAtual->prox = NULL;
     break;
   default:
-    printf("Escolha inválida. Personagem não definido.\n");
+    printf("Escolha inválida. Herói não definido.\n");
   }
 
   return personagemAtual;
@@ -275,4 +285,17 @@ inimigo *escolherInimigoAleatorio(inimigo *headI) {
   }
 
   return tempI;
+}
+
+void inicializarListaInimigos(inimigo listaInimigos[MAX_INIMIGOS]) {
+  // Preencha os detalhes dos inimigos na ordem desejada
+  listaInimigos[0] = (inimigo){1, 140, 4, 15, 1, "Lamina das Sombras"};
+  listaInimigos[1] = (inimigo){2, 100, 8, 12, 2, "Cavaleiro Espectral"};
+  // Adicione outros inimigos conforme necessário
+}
+
+inimigo escolherProximoInimigo(inimigo listaInimigos[MAX_INIMIGOS], int *indiceAtual) {
+  inimigo proximoInimigo = listaInimigos[*indiceAtual];
+  (*indiceAtual)++;
+  return proximoInimigo;
 }
