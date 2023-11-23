@@ -2,7 +2,8 @@
 
 #Instrucoes para rodar o projeto 
 
-Ao terminal digite:
+Ao abrir o terminal digite:
+
 ./rpg
 
 #Instrucoes do jogo
