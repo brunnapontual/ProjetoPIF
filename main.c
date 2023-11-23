@@ -12,39 +12,53 @@ int main() {
   personagem *head = NULL;
   inimigo *headI = NULL;
 
-  // Declaração dos personagens
+//melhorar a saida visual no terminal
+  // declaração dos personagens
   inserirH(&head, 500, 55, 100, "Guerreiro Infernal");
   inserirH(&head, 340, 32, 200, "Mago de Gelo");
   inserirH(&head, 450, 40, 114, "Arqueira florestal");
 
-  // Declaração dos inimigos
-  inserirI(&headI, 140, 4, 15, 1, "Lamina das Sombras");
+//diminuir o numero deinimigos talvez
+  // declaração dos inimigos
   inserirI(&headI, 100, 8, 12, 2, "Cavaleiro Espectral");
-  inserirI(&headI, 170, 6, 20, 3, "Servo do Abismo");
+  inserirI(&headI, 140, 4, 15, 1, "Lamina das Sombras");
+  inserirI(&headI, 170, 6, 20, 3, "Guardião das Trevas");
   inserirI(&headI, 200, 24, 40, 4, "Arauto do Crepúsculo");
-  inserirI(&headI, 320, 2, 6, 5, "Guardião das Trevas");
-  inserirI(&headI, 220, 24, 17, 6, "Artorias");
-  inserirI(&headI, 230, 27, 16, 7, "Espreitador sombrio");
-  inserirI(&headI, 240, 26, 18, 8, "Legião ardente");
-  inserirI(&headI, 250, 29, 19, 9, "Soldado do desespero");
-  inserirI(&headI, 270, 30, 20, 10, "Lorde das cinzas gwyn");
 
-  printf("Lista de Personagens:\n");
+
+    printf("                    Salve o príncipe                                       \n");
+    printf("                       ▄▀▄     ▄▀▄\n");
+    printf("                      ▄█  ▀▀▀▀▀  █▄\n");
+    printf("                  ▄▄  █           █  ▄▄\n");
+    printf("                 █▄▄█ █  ▀  ┬  ▀  █ █▄▄█\n");
+    printf(" --------------------------------------------------------\n");
+    printf("|               Bem ao rpg Salve o Príncipe!!       |\n");
+    printf("|                                                         |\n");
+    printf("| Você terá que derrotar 3 vilões para salvar o príncipe. |\n");
+    printf("|                                                         |\n");                       
+    printf("| Para começar escolha o seu Herói.                       |\n");
+    printf("|                                                         |\n");
+    printf("|                       Boa Sorte!                        |\n");
+    printf("|                                                         |\n");
+    printf(" --------------------------------------------------------\n");
   imprimirH(head);
 
-  int aux;
+  
+  int aux = 0;
   personagem *personagemAtual = NULL;
   inimigo *inimigoAtual;
   inimigoAtual = escolherInimigoAleatorio(headI);
   int escolha;
   do {
-    int aux = 0;
-    printf("Escolha o seu personagem:\n");
-    printf("1. Personagem 1\n");
-    printf("2. Personagem 2\n");
-    printf("3. Personagem 3\n");
-    printf("0. Sair\n");
+//trocar o personagem123 pelo nome: guerreiro etc
+    printf("Escolha o seu Herói:\n");
+    printf("1. Guerreiro Infernal\n");
+    printf("2. Mago de Gelo\n");
+    printf("3. Arqueira florestal\n");
     scanf("%d", &escolha);
+
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { }
 
     switch (escolha) {
     case 1:
@@ -56,22 +70,23 @@ int main() {
     case 3:
       personagemAtual = escolherPersonagem(3, head);
       break;
-    case 0:
-      printf("Encerrando o jogo.\n");
-      break;
     default:
       printf("Escolha inválida. Tente novamente.\n");
       aux = 1;
-      break;
+      
     }
+   
+  
 } while (aux);
 
-  printf("\nPersonagem escolhido: %s\n", personagemAtual->nome);
+  printf("\nHeroi escolhido: %s\n", personagemAtual->nome);
   int ids[MAX_INIMIGOS];
   char inimigosBatalhados[MAX_INIMIGOS][50];
   int numInimigosBatalhados = 0;
   printf("inimigo atual: %s", inimigoAtual->nome);
   do {
+//atualizar a tela Clear the screen(na lib screen.h), ou update
+//tirar a opçao atacar com poder magico deixar so o ataque normal(a gnt pode colocar entre parenteses tb quanto é o dano de ataque atual)
     printf("\nOpções de ação:\n");
     printf("1. Atacar\n");
     printf("2. Atacar com poder mágico\n");
@@ -82,6 +97,7 @@ int main() {
     switch (escolha) {
     case 1: {
       if (personagemAtual->hp > 0) {
+//nao acho que precisa de confirmação seria bom tirar pra tentar diminuir o codigo mas nao sei se pode
         int confirmacao;
         printf("\nVocê escolheu atacar. Confirme a ação (1 para confirmar, 0 "
                "para cancelar): ");
@@ -109,6 +125,7 @@ int main() {
       }
       break;
     }
+
     case 2: {
       if (personagemAtual->hp > 0) {
         int confirmacao;
@@ -118,7 +135,6 @@ int main() {
         if (confirmacao == 1) {
           ataqueMagico(personagemAtual, inimigoAtual);
           if (inimigoAtual->hp <= 0) {
-            // eu sou o monstro de C
             ids[numInimigosBatalhados] = inimigoAtual->id;
             strcpy(inimigosBatalhados[ids[numInimigosBatalhados]],
                    inimigoAtual->nome);
@@ -131,6 +147,7 @@ int main() {
               printf("\nTodos os inimigos foram derrotados!\n");
               break;
             }
+
           }
           printf("\nPersonagem: %s |HP: %d\n", personagemAtual->nome,
                  personagemAtual->hp);
@@ -141,6 +158,7 @@ int main() {
       }
       break;
     }
+      
     case 3: {
       if (personagemAtual->hp > 0) {
         int confirmacao;
@@ -159,27 +177,24 @@ int main() {
       }
       break;
     }
+     
     default:
       printf("\nOpção inválida. Tente novamente.\n");
       break;
     }
+   
+
   } while (personagemAtual->hp > 0 && headI != NULL);
 
   if (personagemAtual->hp <= 0) {
     printf("\nVocê foi derrotado. Fim de jogo.\n");
     free(personagemAtual);
   } else {
+    printf("                  ▄▀▄     ▄▀▄\n");
+    printf("                 ▄█  ▀▀▀▀▀  █▄     VOCE SALVOU O PRINCIPE!\n");
+    printf("             ▄▄  █           █  ▄▄\n");
+    printf("            █▄▄█ █  ▀  ┬  ▀  █ █▄▄█\n");
     printf("\nParabéns! Você derrotou todos os inimigos. Fim de jogo.\n");
-  }
-  insertionSort(ids, numInimigosBatalhados);
-  if (numInimigosBatalhados == 0) {
-    printf("Nenhum inimigo foi vencido.\n");
-  } else {
-    printf("\nLista de inimigos vencidos:\n");
-    insertionSort(ids, numInimigosBatalhados);
-    for (int i = 0; i < numInimigosBatalhados; i++) {
-      printf("%d. %s\n", i + 1, inimigosBatalhados[ids[i] - 1]);
-    }
   }
 
   liberarMemoriaH(head);
